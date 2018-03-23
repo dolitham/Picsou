@@ -6,64 +6,72 @@
 
     <style>
 
-        .operation_list a{
-            color: #000000;
-            text-decoration: none;
-            }
+        .table {
+        border: 0px;
+        border-collapse:collapse;
+        }
 
-        .operation_list li:hover {
+        th {
+        text-align:left;
+        }
+
+        tr {
+            line-height: 2em ;
+        }
+        td {
+            padding-right:5px;
+            padding-left: 5px;
+        }
+        .operation_name {
+            background: #ccddff;
+            border-radius: 5px 0 0 5px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        .amount {
+            background: #7070DB;
+            text-align:right;
+            color:white;
+        }
+        .budget {
+            background: #b3ccff;
+            color:#7070DB;
+            border-radius: 0 5px 5px 0;
+            text-align:left;
+            font-size:small;
+            font-variant: small-caps;
+        }
+        tr: hover {
             color: #607D8B;
             background-color: #DDD;
-            left: .1em;
+            left: 10px;
         }
 
-        .operation_list {
-            list-style-type: none;
-            margin: 0 0 2em 0;
-            list-style-type: none;
-            padding: 0;
-            width: 15em;
-        }
 
-        .operation_list li {
-            cursor: pointer;
-            position: relative;
-            left: 0;
-            background-color: #EEE;
-            margin: .5em;
-            height: 30px;
-            border-radius: 4px;
-
-        }
-
-        .amount{
-            display: inline-block;
-            font-size: small;
-            color: white;
-            background-color: #607D8B;
-            position: absolute;
-            right: 0px;
-            height: 30px;
-            border-radius: 0 4px 4px 0;
-            width: 55px;
-        }
     </style>
 </head>
 <body>
 
 {% if operation_list %}
-    <ul class="operation_list">
-    {% for operation in operation_list %}
-        <a href="/bank/{{ operation.id }}/">
-            <li>
-                {{ operation.name }} <span class="amount">{{ operation.amount }}</span>
-            </li>
-        </a>
-    {% endfor %}
+  <table style="width:60%">
+        <th> Name</th>
+        <th> Amount</th>
+        <th> Budget </th>
+        {% for operation in operation_list %}
+
+                <tr style="cursor:pointer" onClick="location.href='/bank/{{ operation.id }}/';">
+                    <td class="operation_name"> {{ operation.name }} </td>
+                    <td class="amount" nowrap> &euro; {{ operation.amount }}  </td>
+                    <td class="budget" nowrap> {{ operation.budget }}  </td>
+                </tr>
+            </a>
+        {% endfor %}
+    </table>
     </ul>
 {% else %}
     <p>No operations are available.</p>
 {% endif %}
+
+
 
 </body>
 </html>
