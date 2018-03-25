@@ -5,8 +5,7 @@
     <title>Title</title>
 
     <style>
-
-        .table {
+         .table {
         border: 0px;
         border-collapse:collapse;
         }
@@ -45,8 +44,6 @@
             background-color: #DDD;
             left: 10px;
         }
-
-
     </style>
 </head>
 <body>
@@ -71,6 +68,13 @@
     <p>No operations are available.</p>
 {% endif %}
 
+{% if account_list %}
+    <ul>
+        {% for account in account_list %}
+            <li>{{account.name}} : &euro; {{account.balance}}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 
 
 </body>
