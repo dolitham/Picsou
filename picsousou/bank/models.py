@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.timezone import now
+from django.forms import ModelForm
 
 RE = "Restos"
 MA = 'Market'
@@ -24,3 +25,9 @@ class Operation(models.Model):
 class Account(models.Model):
     name = models.CharField(max_length=50)
     balance = models.DecimalField(max_digits=7, decimal_places=2)
+
+
+class OperationForm(ModelForm):
+    class Meta:
+        model = Operation
+        fields = ['name', 'amount']

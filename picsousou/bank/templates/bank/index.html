@@ -76,6 +76,10 @@
     </ul>
 {% endif %}
 
+<form method="POST" class="post-form">{% csrf_token %}
+    {{ operation_form }}
+    <button type="submit" >Add</button>
+</form>
 
 </body>
 </html>
