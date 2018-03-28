@@ -1,0 +1,57 @@
+{% block content %}
+
+<style>
+td a {
+    display:table;
+    background: #A9BCF5;
+    width:100%;
+    border-spacing:10px/*border-spacing  instead of padding*/
+}
+td {
+    padding-right:5px;
+    padding-left: 5px;
+}
+</style>
+
+
+
+<table cellspacing="0" cellpadding="0">
+    <tr>
+        <td><a href="../">Current Operations</a></td>
+        <td><a href="#">Search Operations</a></td>
+    </tr>
+</table>
+
+<form action="" method="post">
+    {# This will display the radio button HTML for you #}
+    {{ display_type.as_p }}
+    {# You'll need a submit button or similar here to actually send the form #}
+</form>
+
+
+
+  <form method="get">
+    {{ filter.form.as_p }}
+    <button type="submit">Search</button>
+  </form>
+  <ul>
+  {% if filter.qs %}
+  <table style="width:60%">
+        <th> Name</th>
+        <th> Amount</th>
+        <th> Budget </th>
+        {% for operation in filter.qs %}
+                <tr style="cursor:pointer" onClick="location.href='/bank/{{ operation.id }}/';">
+                    <td class="operation_name"> {{ operation.name }} </td>
+                    <td class="amount" nowrap> &euro; {{ operation.amount }}  </td>
+                    <td class="budget" nowrap> {{ operation.budget }}  </td>
+                </tr>
+            </a>
+        {% endfor %}
+    </table>
+    </ul>
+{% else %}
+    <p>No operations are available.</p>
+{% endif %}
+  </ul>
+{% endblock %}
