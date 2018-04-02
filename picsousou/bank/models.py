@@ -30,6 +30,9 @@ class Operation(models.Model):
     date = models.DateField('Date', default=now())
     budget = models.CharField(max_length=15, choices=BUDGET_CHOICES, default=HB)
 
+    def __str__(self):
+        return self.name + ' : '+str(self.amount)
+
 
 class OperationFilter(django_filters.FilterSet):
     class Meta:

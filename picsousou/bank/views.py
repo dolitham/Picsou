@@ -1,5 +1,8 @@
-from django.shortcuts import render, redirect
+from django.http import Http404, HttpResponseRedirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django import forms
+from django.urls import reverse, reverse_lazy
+from django.views.generic import UpdateView
 
 from .models import Operation, Account, OperationForm
 from .models import OperationFilter
@@ -24,7 +27,7 @@ def index(request):
         form = OperationForm()
 
     context = {
-        'choices_filter' : choices_filter,
+        'choices_filter': choices_filter,
         'operation_list': operation_list,
         'account_list': account_list,
         'operation_form': form}
@@ -39,7 +42,23 @@ def search(request):
             if display_type == "Mode 1":
                 return render(request, 'bank/operation_list.html', {'form': form_display})
 
-
     operation_list = Operation.objects.all()
     operation_filter = OperationFilter(request.GET, queryset=operation_list)
     return render(request, 'bank/operation_list.html', {'filter': operation_filter})
+
+
+def edit_operation(request, operation_id):
+    operation = get_object_or_404(Operation, pk=operation_id)
+    form = OperationForm()
+    context = {
+        'operation': operation,
+        'form': form
+    }
+    return render(request, 'bank/edit_operation.html', context)
+
+
+class OperationUpdate(UpdateView):
+    model = Operation
+    fields = ['name', 'amount']
+    template_name = 'bank/edit_operation.html'
+    success_url = '/bank/'
