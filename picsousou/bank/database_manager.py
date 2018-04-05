@@ -13,3 +13,12 @@ class DataBaseManager:
     def spend_from_budget(budget, amount):
         budget.spent += amount
         budget.save()
+
+    @staticmethod
+    def spend_from_account(account, amount):
+        account.balance -= amount
+        account.save()
+
+    @staticmethod
+    def insert_operation(operation):
+        operation.save()

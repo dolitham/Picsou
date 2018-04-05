@@ -62,7 +62,7 @@ class Budget(models.Model):
     spent = models.DecimalField(max_digits=7, decimal_places=2, default=0)
 
     def __str__(self):
-        return self.name
+        return self.name.name
 
     @property
     def first_day(self):
