@@ -1,14 +1,13 @@
 from django.urls import path
 from django.conf.urls import url
 
-from . import views
+from .views import *
+from .forms import *
 
-app_name ='bank'
+app_name = 'bank'
 
 urlpatterns = [
-    path('', views.index, name='index'),
-    path('<int:pk>/', views.OperationUpdate.as_view(), name='edit_operation'),
-    url(r'^search/$', views.search, name='search'),
+    path('', index, name='index'),
+    path('<int:pk>/', OperationUpdate.as_view(), name='edit_operation'),
+    url(r'^search/$', search, name='search'),
 ]
-
-

@@ -1,10 +1,28 @@
-from django import forms
+import django_filters
+from django.forms import ModelForm
+from django.views.generic import UpdateView
 
-DISPLAY_CHOICES = (
-    ("mode1", "Mode 1"),
-    ("mode2", "Mode 2")
-)
+from .models import *
 
 
-class DisplayType(forms.Form):
-    display_type = forms.ChoiceField(widget=forms.RadioSelect, choices=DISPLAY_CHOICES)
+class OperationForm(ModelForm):
+    class Meta:
+        model = Operation
+        fields = ['name', 'amount']
+
+
+class OperationFilter(django_filters.FilterSet):
+    class Meta:
+        model = Operation
+        fields = {
+            'name': ['exact', 'icontains', ],
+            'amount': ['lt', 'gt', ],
+            'date': ['lt', 'gt', ],
+        }
+
+
+class OperationUpdate(UpdateView):
+    model = Operation
+    fields = ['name', 'amount']
+    template_name = 'bank/edit_operation.html'
+    success_url = '/bank/'
