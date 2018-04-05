@@ -1,8 +1,8 @@
 from django.db import models
-from django.utils.timezone import now
 from django.forms import ModelForm
 import django_filters
 import datetime
+
 
 RE = "Restos"
 MA = 'Market'
@@ -23,14 +23,27 @@ class Month(models.Model):
     total_input = models.DecimalField(max_digits=7, decimal_places=2, default = 0)
     total_output = models.DecimalField(max_digits=7, decimal_places=2, default = 0)
     balance = models.DecimalField(max_digits=7, decimal_places=2, default = 0)
-    #timedelta = last_day - first_day
-    #nb_days = models.IntegerField(default=timedelta.days, editable=False)
+
+    @property
+    def nb_days(self):
+        days = self.last_day-self.first_day
+        return days.days+1
+
+    @property
+    def id_name(self):
+        middle_date = self.first_day+datetime.timedelta(days=self.nb_days//2)
+        return middle_date.strftime("%b %Y")
+
 
     def __str__(self):
-        return self.first_day.strftime('%b %Y')
+        return str(self.id_name)
+
 
 class Person(models.Model):
     name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
 
 
 class Account(models.Model):
@@ -64,7 +77,7 @@ class Budget(models.Model):
 class Operation(models.Model):
     name = models.CharField(max_length=200)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
-    date = models.DateField('Date', default=datetime.date.today())
+    date = models.DateField('Date', default=datetime.date.today)
     budget = models.ForeignKey(Budget, on_delete=models.CASCADE, default=1)
     check = models.BooleanField(default=False)
     payment = models.ForeignKey(PaymentMethod, on_delete=models.CASCADE, default=1)
