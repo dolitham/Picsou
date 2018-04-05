@@ -23,6 +23,7 @@ class Month(models.Model):
         return str(self.id_name)
 
 
+
 class Person(models.Model):
     name = models.CharField(max_length=20)
 
@@ -47,8 +48,15 @@ class PaymentMethod(models.Model):
         return self.name + ' ' + self.account.id_name
 
 
-class Budget(models.Model):
+class BudgetName(models.Model):
     name = models.CharField(max_length=20)
+
+    def __str__(self):
+        return self.name
+
+
+class Budget(models.Model):
+    name = models.ForeignKey(BudgetName, on_delete=models.CASCADE, default=1)
     month = models.ForeignKey(Month, on_delete=models.CASCADE, blank=True, default=1)
     prevision = models.DecimalField(max_digits=7, decimal_places=2, default=0)
     spent = models.DecimalField(max_digits=7, decimal_places=2, default=0)
@@ -56,12 +64,20 @@ class Budget(models.Model):
     def __str__(self):
         return self.name
 
+    @property
+    def first_day(self):
+        return self.month.first_day
+
+    @property
+    def last_day(self):
+        return self.month.last_day
+
 
 class Operation(models.Model):
     name = models.CharField(max_length=200)
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateField('Date', default=datetime.date.today)
-    budget = models.ForeignKey(Budget, on_delete=models.CASCADE, default=1)
+    budget = models.ForeignKey(BudgetName, on_delete=models.CASCADE, default=1)
     check = models.BooleanField(default=False)
     payment = models.ForeignKey(PaymentMethod, on_delete=models.CASCADE, default=1)
 

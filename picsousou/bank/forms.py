@@ -8,7 +8,7 @@ from .models import *
 class OperationForm(ModelForm):
     class Meta:
         model = Operation
-        fields = ['name', 'amount']
+        fields = ['name', 'amount', 'budget', 'payment']
 
 
 class OperationFilter(django_filters.FilterSet):
@@ -18,6 +18,7 @@ class OperationFilter(django_filters.FilterSet):
             'name': ['exact', 'icontains', ],
             'amount': ['lt', 'gt', ],
             'date': ['lt', 'gt', ],
+            'budget' : ['exact']
         }
 
 
