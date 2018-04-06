@@ -34,7 +34,8 @@ class Person(models.Model):
 class Account(models.Model):
     name = models.CharField(max_length=50)
     id_name = models.CharField(max_length=10)
-    balance = models.DecimalField(max_digits=7, decimal_places=2)
+    current_balance = models.DecimalField(max_digits=7, decimal_places=2)
+    upcoming_balance = models.DecimalField(max_digits=7, decimal_places=2)
 
     def __str__(self):
         return self.name
@@ -83,3 +84,7 @@ class Operation(models.Model):
 
     def __str__(self):
         return self.name + ' : '+str(self.amount)
+
+    @property
+    def account(self):
+        return self.payment.account

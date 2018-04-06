@@ -24,6 +24,6 @@ class OperationFilter(django_filters.FilterSet):
 
 class OperationUpdate(UpdateView):
     model = Operation
-    fields = ['name', 'amount']
+    fields = ['name', 'amount', 'budget', 'payment']
     template_name = 'bank/edit_operation.html'
     success_url = '/bank/'

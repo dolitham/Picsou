@@ -16,9 +16,24 @@ class DataBaseManager:
 
     @staticmethod
     def spend_from_account(account, amount):
-        account.balance -= amount
+        account.upcoming_balance -= amount
+        account.save()
+
+    @staticmethod
+    def process_amount_in_account(account, amount):
+        account.current_balance -= amount
         account.save()
 
     @staticmethod
     def insert_operation(operation):
+        operation.save()
+
+    @staticmethod
+    def check_operation(operation):
+        operation.check = True
+        operation.save()
+
+    @staticmethod
+    def uncheck_operation(operation):
+        operation.check = False
         operation.save()

@@ -42,7 +42,7 @@
 {% if account_list %}
     <ul>
         {% for account in account_list %}
-            <li>{{account.name}} : &euro; {{account.balance}}</li>
+            <li>{{account.name}} : &euro; {{account.current_balance}}</li>
         {% endfor %}
     </ul>
 {% endif %}
