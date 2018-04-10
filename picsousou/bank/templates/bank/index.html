@@ -14,6 +14,7 @@
     <tr>
         <td><a href="#">Current Operations</a></td>
         <td><a href="search">Search Operations</a></td>
+        <td><a href="add_operation">Add Operation</a></td>
     </tr>
 </table>
 
@@ -46,11 +47,6 @@
         {% endfor %}
     </ul>
 {% endif %}
-
-<form method="POST" class="post-form">{% csrf_token %}
-    {{ operation_form }}
-    <button type="submit" >Add</button>
-</form>
 
 </body>
 </html>

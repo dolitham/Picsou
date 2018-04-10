@@ -33,6 +33,8 @@ ALLOWED_HOSTS = [
 
 INSTALLED_APPS = [
     'bank.apps.BankConfig',
+    'dal',
+    'dal_select2',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -40,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_filters',
+
 ]
 
 MIDDLEWARE = [

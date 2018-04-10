@@ -23,7 +23,6 @@ class Month(models.Model):
         return str(self.id_name)
 
 
-
 class Person(models.Model):
     name = models.CharField(max_length=20)
 
@@ -44,6 +43,7 @@ class Account(models.Model):
 class PaymentMethod(models.Model):
     name = models.CharField(max_length=50)
     account = models.ForeignKey(Account, on_delete=models.CASCADE)
+    visible_days = models.IntegerField(default=0)
 
     def __str__(self):
         return self.name + ' ' + self.account.id_name
@@ -73,6 +73,9 @@ class Budget(models.Model):
     def last_day(self):
         return self.month.last_day
 
+    def set_prev_to(self, prevision):
+        self.prevision = prevision
+
 
 class Operation(models.Model):
     name = models.CharField(max_length=200)
@@ -88,3 +91,12 @@ class Operation(models.Model):
     @property
     def account(self):
         return self.payment.account
+
+    def is_recent_or_pending(self):
+        is_pending = not self.check and self.payment.visible_days == 0
+        if is_pending:
+            return True
+        now = datetime.date.today()
+        is_recent = self.date > now - datetime.timedelta(days=self.payment.visible_days)
+        print(self.name, is_recent)
+        return is_recent

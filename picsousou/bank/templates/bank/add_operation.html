@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add an operation</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bank/index.css' %}">
+
+</head>
+<body>
+
+
+<table cellspacing="0" cellpadding="0">
+    <tr>
+        <td><a href="index">Current Operations</a></td>
+        <td><a href="search">Search Operations</a></td>
+        <td><a href="#">Add Operation</a></td>
+    </tr>
+</table>
+
+<br>
+
+<form method="POST" class="post-form">{% csrf_token %}
+    {{ operation_form }}
+    <br>
+    <button type="submit" name="return">Add and Return</button>
+    <button type="submit" name="add_another">Add and Add another</button>
+</form>
+
+</body>
+</html>
