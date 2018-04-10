@@ -1,0 +1,20 @@
+{% if operation_list %}
+  <table style="width:60%">
+        <th> Name</th>
+        <th> Amount</th>
+        <th> Budget </th>
+        <th> Check </th>
+        {% for operation in operation_list %}
+
+      <tr style="cursor:pointer" onClick="location.href='/bank/{{ operation.id }}/';">
+                    <td class="operation_name"> {{ operation.name }} </td>
+                    <td class="amount" nowrap> &euro; {{ operation.amount }}  </td>
+                    <td class="budget" nowrap> {{ operation.budget }}  </td>
+                    <td class="check" nowrap> {{ operation.check }}   </td>
+
+      </tr>
+      {% endfor %}
+  </table>
+{% else %}
+    <p>No operations are available.</p>
+{% endif %}

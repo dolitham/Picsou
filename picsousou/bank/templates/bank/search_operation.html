@@ -31,24 +31,9 @@
     {{ filter.form.as_p }}
     <button type="submit">Search</button>
   </form>
-  <ul>
-  {% if filter.qs %}
-  <table style="width:60%">
-        <th> Name</th>
-        <th> Amount</th>
-        <th> Budget </th>
-        {% for operation in filter.qs %}
-                <tr>
-                    <td class="operation_name"> {{ operation.name }} </td>
-                    <td class="amount" nowrap> &euro; {{ operation.amount }}  </td>
-                    <td class="budget" nowrap> {{ operation.budget }}  </td>
-                </tr>
-            </a>
-        {% endfor %}
-    </table>
-    </ul>
-{% else %}
-    <p>No operations are available.</p>
-{% endif %}
-  </ul>
+
+    {% with filter.qs as operation_list %}
+        {% include 'bank/display_operations.html' %}
+    {% endwith %}
+
 {% endblock %}
