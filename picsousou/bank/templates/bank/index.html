@@ -10,7 +10,9 @@
 </head>
 <body>
 
-{% include 'bank/header.html' %}
+{% with 'index' as page_name %}
+    {% include 'bank/header.html' %}
+{% endwith %}
 
 {% with operation_list as operation_list %}
     {% include 'bank/display_operations.html' %}

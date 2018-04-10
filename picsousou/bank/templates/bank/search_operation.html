@@ -11,7 +11,9 @@
 </head>
 
 
-{% include 'bank/header.html' %}
+{% with 'search' as page_name %}
+    {% include 'bank/header.html' %}
+{% endwith %}
 
 <form action="" method="post">
     {# This will display the radio button HTML for you #}

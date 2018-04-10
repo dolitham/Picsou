@@ -1,7 +1,8 @@
-<table cellspacing="0" cellpadding="0">
-    <tr>
-        <td><a href={% url 'bank:index' %} >Current Operations</a></td>
-        <td><a href={% url 'bank:search' %}>Search Operations</a></td>
-        <td><a href={% url 'bank:add_operation' %}>Add Operation</a></td>
-    </tr>
-</table>
+{% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bank/header.css' %}">
+
+<div class="topnav">
+  <a class="{% if page_name == 'index' %}active{% endif %}" href={% url 'bank:index' %}>Current Operations</a>
+  <a class="{% if page_name == 'search' %}active{% endif %}" href={% url 'bank:search' %}>Search Operations</a>
+  <a class="{% if page_name == 'add_operation' %}active{% endif %}" href={% url 'bank:add_operation' %}>Add Operation</a>
+</div>
