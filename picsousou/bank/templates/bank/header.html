@@ -10,16 +10,27 @@
 
 
 <div class="topnav">
+  <a class="{% if page_name == 'settings' %}active{% endif %}" href={% url 'bank:settings' %}>
+    <span class="fa-stack fa-xs">
+        <i class="fa fa-cog fa-stack-2x"></i>
+    </span>
+  </a>
+
+  <a class>
+    <span class="fa-stack fa-xs">
+    </span>
+  </a>
+
   <a class="{% if page_name == 'index' %}active{% endif %}" href={% url 'bank:index' %}>
     <span class="fa-stack fa-xs">
-        <i class="fa fa-home fa-stack-2x"></i>
+        <i class="fa fa-list fa-stack-2x"></i>
     </span>
   </a>
 
   <a class="{% if page_name == 'search' %}active{% endif %}" href={% url 'bank:search' %}>
     <span class="fa-stack fa-xs">
-  <i class="fa fa-search fa-stack-2x"></i>
-</span>
+        <i class="fa fa-search fa-stack-2x"></i>
+    </span>
   </a>
 
   <a class="{% if page_name == 'add_operation' %}active{% endif %}" href={% url 'bank:add_operation' %}>
