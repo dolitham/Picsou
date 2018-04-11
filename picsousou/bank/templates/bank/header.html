@@ -1,8 +1,31 @@
 {% load static %}
     <link rel="stylesheet" type="text/css" href="{% static 'bank/header.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+
+
+
+
+
 
 <div class="topnav">
-  <a class="{% if page_name == 'index' %}active{% endif %}" href={% url 'bank:index' %}>Current Operations</a>
-  <a class="{% if page_name == 'search' %}active{% endif %}" href={% url 'bank:search' %}>Search Operations</a>
-  <a class="{% if page_name == 'add_operation' %}active{% endif %}" href={% url 'bank:add_operation' %}>Add Operation</a>
+  <a class="{% if page_name == 'index' %}active{% endif %}" href={% url 'bank:index' %}>
+    <span class="fa-stack fa-xs">
+        <i class="fa fa-home fa-stack-2x"></i>
+    </span>
+  </a>
+
+  <a class="{% if page_name == 'search' %}active{% endif %}" href={% url 'bank:search' %}>
+    <span class="fa-stack fa-xs">
+  <i class="fa fa-search fa-stack-2x"></i>
+</span>
+  </a>
+
+  <a class="{% if page_name == 'add_operation' %}active{% endif %}" href={% url 'bank:add_operation' %}>
+    <span class="fa-stack fa-xs">
+        <i class="fa fa-circle-thin fa-stack-2x"></i>
+        <i class="fa fa-plus fa-stack-1x"></i>
+    </span>
+  </a>
 </div>
