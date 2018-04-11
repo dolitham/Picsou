@@ -73,7 +73,7 @@ class Budget(models.Model):
     def last_day(self):
         return self.month.last_day
 
-    def set_prev_to(self, prevision):
+    def set_prevision_to(self, prevision):
         self.prevision = prevision
 
 

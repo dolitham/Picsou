@@ -7,7 +7,7 @@
         {% for operation in operation_list %}
 
       <tr style="cursor:pointer" >
-                    <td class="operation_name" onClick="location.href='/bank/{{ operation.id }}/';"> {{ operation.name }} </td>
+                    <td class="operation_name" onClick="location.href='/bank/operation/{{ operation.id }}/';"> {{ operation.name }} </td>
                     <td class="amount" nowrap> &euro; {{ operation.amount }}  </td>
                     <td class="budget" nowrap> {{ operation.budget }}  </td>
                     <td class="check" nowrap> <input type='checkbox' {% ifequal operation.check True %}checked{% endifequal %}>  </td>
