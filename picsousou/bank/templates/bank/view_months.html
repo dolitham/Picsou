@@ -1,0 +1,25 @@
+{% extends 'bank/settings.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/settings.css' %}">
+
+    <table id="content" style="width:60%">
+        <th> First Day</th>
+        <th> Last Day</th>
+        <th> Input </th>
+        <th> Output </th>
+        <th> Balance </th>
+    {% for month in month_list %}
+      <tr style="cursor:pointer" onClick="location.href='{% url 'bank:edit_month' month.id %}';" >
+          <td> {{ month.first_day }} </td>
+          <td nowrap> {{ month.last_day }}  </td>
+          <td nowrap>  {{ month.total_input }}  </td>
+          <td nowrap>  {{ month.total_output }}  </td>
+          <td nowrap>  {{ month.balance }}  </td>
+      </tr>
+
+    {% endfor %}
+        </table>
+{% endblock %}
+

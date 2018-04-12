@@ -1,0 +1,21 @@
+{% extends 'bank/settings.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/settings.css' %}">
+
+    <table id="content" style="width:60%">
+        <th> Name</th>
+        <th> Account</th>
+        <th> Days visible </th>
+    {% for payment in payment_list %}
+      <tr style="cursor:pointer" onClick="location.href='{% url 'bank:edit_payment' payment.id %}';" >
+          <td> {{ payment.name }} </td>
+          <td nowrap>  {{ payment.account }}  </td>
+          <td nowrap>  {{ payment.visible_days }}  </td>
+      </tr>
+
+    {% endfor %}
+</table>
+{% endblock %}
+

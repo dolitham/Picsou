@@ -3,13 +3,32 @@
 <head>
     <meta charset="UTF-8">
     <title>Settings</title>
+
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bank/settings.css' %}">
 </head>
 <body>
+
 
 {% with 'settings' as page_name %}
     {% include 'bank/header.html' %}
 {% endwith %}
 
-Settings
+<br>
+
+<div class="sidenav">
+  <a href={% url 'bank:view_accounts' %}>Accounts</a>
+  <a href={% url 'bank:view_payments' %}>Payment Methods</a>
+  <a href={% url 'bank:view_budgets' %}>Budgets</a>
+  <a href={% url 'bank:view_months' %}>Months</a>
+</div>
+
+
+<div class="main">
+    {% block content %}
+    {% endblock %}
+</div>
+
 </body>
 </html>
+

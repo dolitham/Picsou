@@ -1,0 +1,21 @@
+{% extends 'bank/settings.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/settings.css' %}">
+
+    <table id="content" style="width:60%">
+        <th> Name</th>
+        <th> Current Balance</th>
+        <th> Upcoming Balance </th>
+    {% for account in account_list %}
+      <tr style="cursor:pointer" onClick="location.href='{% url 'bank:edit_account' account.id %}';" >
+          <td> {{ account.name }} </td>
+          <td nowrap> &euro; {{ account.current_balance }}  </td>
+          <td nowrap> &euro; {{ account.upcoming_balance }}  </td>
+      </tr>
+
+    {% endfor %}
+        </table>
+{% endblock %}
+

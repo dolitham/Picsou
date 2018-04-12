@@ -1,0 +1,17 @@
+{% extends 'bank/settings.html' %}
+
+{% block content %}
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/settings.css' %}">
+
+    <table id="content" style="width:60%">
+        <th> Name</th>
+    {% for budget in budget_list %}
+      <tr style="cursor:pointer" onClick="location.href='{% url 'bank:edit_budget' budget.id %}';" >
+          <td> {{ budget.name }} </td>
+      </tr>
+
+    {% endfor %}
+        </table>
+{% endblock %}
+

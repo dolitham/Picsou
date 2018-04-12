@@ -4,8 +4,11 @@ from .operation_manager import *
 
 
 def settings(request):
+    account_list = Account.objects.all()
+    url = request.get_full_path()
     context = {
-        'person_list': Person.objects.all()
+        'account_list': account_list,
+        'current_url': url
     }
     return render(request, 'bank/settings.html', context)
 
@@ -32,7 +35,6 @@ def search(request):
     return render(request, 'bank/search_operation.html', {'filter': operation_filter})
 
 
-
 def add_operation(request):
     if request.method == 'POST':
         form = OperationForm(request.POST)
@@ -48,3 +50,35 @@ def add_operation(request):
     context = {
         'operation_form': form}
     return render(request, 'bank/add_operation.html', context)
+
+
+def view_accounts(request):
+    account_list = Account.objects.all()
+    context = {
+        'account_list': account_list
+    }
+    return render(request, 'bank/view_accounts.html', context)
+
+
+def view_budgets(request):
+    budget_list = BudgetName.objects.all()
+    context = {
+        'budget_list': budget_list
+    }
+    return render(request, 'bank/view_budgets.html', context)
+
+
+def view_months(request):
+    month_list = Month.objects.all()
+    context = {
+        'month_list': month_list
+    }
+    return render(request, 'bank/view_months.html', context)
+
+
+def view_payments(request):
+    payment_list = PaymentMethod.objects.all()
+    context = {
+        'payment_list': payment_list
+    }
+    return render(request, 'bank/view_payments.html', context)
