@@ -14,7 +14,9 @@
 {% endwith %}
 
 {% with operation_list as operation_list %}
-    {% include 'bank/display_operations.html' %}
+    {% with False as display_sum %}
+        {% include 'bank/display_operations.html' %}
+    {% endwith %}
 {% endwith %}
 
 

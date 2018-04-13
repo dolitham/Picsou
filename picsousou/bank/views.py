@@ -1,3 +1,4 @@
+from django.db.models import Sum
 from django.shortcuts import render, redirect
 from .forms import *
 from .operation_manager import *
@@ -32,7 +33,12 @@ def search(request):
         operation_list = Operation.objects.filter(amount__lte=-1000)
         operation_list = operation_list.exclude(amount__lte=-1000)
     operation_filter = OperationFilter(request.GET, queryset=operation_list)
-    return render(request, 'bank/search_operation.html', {'filter': operation_filter})
+    total_operations = OperationFilter(request.GET, queryset=operation_list).qs.aggregate(Sum('amount'))
+    context = {
+        'filter': operation_filter,
+        'total' : total_operations['amount__sum']
+    }
+    return render(request, 'bank/search_operation.html', context)
 
 
 def add_operation(request):

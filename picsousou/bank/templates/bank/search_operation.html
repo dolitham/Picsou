@@ -27,7 +27,9 @@
   </form>
 
     {% with filter.qs as operation_list %}
-        {% include 'bank/display_operations.html' %}
+        {% with total as total %}
+            {% include 'bank/display_operations.html' %}
+        {% endwith %}
     {% endwith %}
 
 {% endblock %}

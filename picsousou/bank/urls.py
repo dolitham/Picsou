@@ -7,7 +7,6 @@ from .forms import *
 app_name = 'bank'
 
 
-
 urlpatterns = [
     path('', index, name='index'),
     path('operation/<int:pk>/', OperationUpdate.as_view(), name='edit_operation'),

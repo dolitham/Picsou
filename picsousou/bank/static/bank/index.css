@@ -1,6 +1,7 @@
 .table {
         border: 0px;
         border-collapse:collapse;
+        font-size: small;
         }
 
         th {
@@ -44,6 +45,11 @@
             color: #607D8B;
             background-color: #DDD;
             left: 10px;
+        }
+
+        tfoot: {
+            font-size: 18px;
+            background-color: #DDD;
         }
 
 .element {

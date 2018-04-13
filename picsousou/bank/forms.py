@@ -56,4 +56,4 @@ class MonthUpdate(UpdateView):
     model = Month
     fields = ['first_day', 'last_day']
     template_name = EDIT_SETTINGS_HTML
-    success_url = 'bank/settings/months'
+    success_url = '/bank/settings/months'

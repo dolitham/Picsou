@@ -14,6 +14,15 @@
 
       </tr>
       {% endfor %}
+      {% if total %}
+            <tfoot >
+                    <td class="tfoot"> Total </td>
+                    <td class="tfoot" nowrap> &euro; {{ total }}  </td>
+                    <td class="tfoot" nowrap>  </td>
+
+
+            </tfoot>
+      {% endif %}
   </table>
 {% else %}
     <p>No operations found.</p>
