@@ -1,3 +1,6 @@
+{% load static %}
+
+
 {% if operation_list %}
   <table style="width:60%">
         <th> Name</th>
@@ -10,9 +13,10 @@
                     <td class="operation_name" onClick="location.href='{% url 'bank:edit_operation' operation.id %}';"> {{ operation.name }} </td>
                     <td class="amount" nowrap> &euro; {{ operation.amount }}  </td>
                     <td class="budget" nowrap> {{ operation.budget }}  </td>
-                    <td class="check" nowrap> <input type='checkbox' {% ifequal operation.check True %}checked{% endifequal %}>  </td>
+                    <td class="check" nowrap> <input type='checkbox' name="operation_check" {% ifequal operation.check True %}checked{% endifequal %}>  </td>
 
       </tr>
+
       {% endfor %}
       {% if total %}
             <tfoot >
@@ -24,6 +28,19 @@
             </tfoot>
       {% endif %}
   </table>
+
+<script src="{% static 'bank/operations.js'%}"></script>
+
+<table id="outside">
+    <tr><td id="t1">one</td></tr>
+    <tr><td id="t2">two</td></tr>
+</table>
+
+
+
+
 {% else %}
     <p>No operations found.</p>
 {% endif %}
+
+
