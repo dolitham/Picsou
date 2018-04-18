@@ -1,4 +1,5 @@
 from django.db.models import Sum
+from django.http import HttpResponse
 from django.shortcuts import render, redirect
 from .forms import *
 from .operation_manager import *
@@ -88,3 +89,17 @@ def view_payments(request):
         'payment_list': payment_list
     }
     return render(request, 'bank/view_payments.html', context)
+
+
+def check_operation_id(request):
+    operation_id = request.GET['operation_id']
+    operation = Operation.objects.get(pk=operation_id)
+    check_operation(operation)
+    return HttpResponse('hello')
+
+
+def uncheck_operation_id(request):
+    operation_id = request.GET['operation_id']
+    operation = Operation.objects.get(pk=operation_id)
+    uncheck_operation(operation)
+    return HttpResponse('hello')
