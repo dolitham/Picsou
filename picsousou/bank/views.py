@@ -1,6 +1,6 @@
 from django.db.models import Sum
 from django.http import HttpResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .operation_manager import *
 
@@ -46,7 +46,6 @@ def add_operation(request):
     if request.method == 'POST':
         form = OperationForm(request.POST)
         create_operation(form.save(commit=False))
-
         if 'add_another' in request.POST:
             return redirect('bank:add_operation')
         elif 'return' in request.POST:
@@ -94,12 +93,27 @@ def view_payments(request):
 def check_operation_id(request):
     operation_id = request.GET['operation_id']
     operation = Operation.objects.get(pk=operation_id)
-    check_operation(operation)
+    secure_check_operation(operation)
     return HttpResponse('hello')
 
 
 def uncheck_operation_id(request):
     operation_id = request.GET['operation_id']
     operation = Operation.objects.get(pk=operation_id)
-    uncheck_operation(operation)
+    secure_uncheck_operation(operation)
     return HttpResponse('hello')
+
+
+def my_view(request, id_operation):
+    instance = get_object_or_404(Operation, id=id_operation)
+    form = OperationForm(request.POST or None, instance=instance)
+    former_operation = Operation.objects.get(pk=id_operation)
+    context = {
+        'form': form,
+        'text':'youpla '
+    }
+    if form.is_valid():
+        raz_operation(former_operation)
+        create_operation(form.save(commit=False))
+        return redirect('bank:index')
+    return render(request, 'bank/edit_operation.html', context)
