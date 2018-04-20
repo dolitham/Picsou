@@ -1,0 +1,75 @@
+.table {
+        border: 0px;
+        border-collapse:collapse;
+        font-size: small;
+        }
+
+        th {
+        text-align:left;
+        }
+
+        tr {
+            line-height: 2em ;
+        }
+        td {
+            padding-right:5px;
+            padding-left: 5px;
+        }
+
+        td a {
+            display:table;
+            background: #A9BCF5;
+            width:100%;
+            border-spacing:10px/*border-spacing  instead of padding*/
+        }
+
+        .operation_name {
+            background: #ccddff;
+            border-radius: 5px 0 0 5px;
+            font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+        }
+        .amount {
+            background: #7070DB;
+            text-align:right;
+            color:white;
+        }
+        .budget {
+            background: #b3ccff;
+            color:#7070DB;
+            border-radius: 0 5px 5px 0;
+            text-align:left;
+            font-size:small;
+            font-variant: small-caps;
+        }
+        tr: hover {
+            color: #607D8B;
+            background-color: #DDD;
+            left: 10px;
+        }
+
+        tfoot: {
+            font-size: 18px;
+            background-color: #DDD;
+        }
+
+.element {
+    position: relative;
+}
+
+/*replace the content value with the
+corresponding value from the list below*/
+
+.element:before {
+    content: "\f000";
+    font-family: FontAwesome;
+    font-style: normal;
+    font-weight: normal;
+    text-decoration: inherit;
+/*--adjust as necessary--*/
+    color: #000;
+    font-size: 18px;
+    padding-right: 0.5em;
+    position: absolute;
+    top: 10px;
+    left: 0;
+}

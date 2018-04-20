@@ -24,11 +24,11 @@ class OperationFilter(django_filters.FilterSet):
         }
 
 
-class OperationUpdate(UpdateView):
-    model = Operation
-    fields = ['name', 'amount', 'budget', 'payment', 'check', 'date']
-    template_name = 'bank/edit_operation.html'
-    success_url = '/bank/'
+#class OperationUpdate(UpdateView):
+#    model = Operation
+#    fields = ['name', 'amount', 'budget', 'payment', 'check', 'date']
+#    template_name = 'bank/edit_operation.html'
+#    success_url = '/bank/'
 
 
 class AccountUpdate(UpdateView):
@@ -50,6 +50,12 @@ class BudgetNameUpdate(UpdateView):
     fields = ['name']
     template_name = EDIT_SETTINGS_HTML
     success_url = '/bank/settings/budgets'
+
+
+class MonthForm(ModelForm):
+    class Meta:
+        model = Month
+        fields = ['first_day', 'last_day']
 
 
 class MonthUpdate(UpdateView):

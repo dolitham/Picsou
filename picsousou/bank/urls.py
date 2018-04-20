@@ -9,8 +9,10 @@ app_name = 'bank'
 
 urlpatterns = [
     path('', index, name='index'),
-    path('operation/<int:pk>/', OperationUpdate.as_view(), name='edit_operation'),
+#    path('operation/<int:pk>/', OperationUpdate.as_view(), name='edit_operation'),
     url(r'^search/$', search, name='search'),
+    path('check_operation_id/', check_operation_id, name='check_operation_id'),
+    path('uncheck_operation_id/', uncheck_operation_id, name='uncheck_operation_id'),
     path('add_operation', add_operation, name='add_operation'),
     path('settings', settings, name='settings'),
     path('settings/accounts', view_accounts, name='view_accounts'),
@@ -21,5 +23,6 @@ urlpatterns = [
     path('payment/<int:pk>/', PaymentMethodUpdate.as_view(), name='edit_payment'),
     path('settings/months', view_months, name='view_months'),
     path('month/<int:pk>/', MonthUpdate.as_view(), name='edit_month'),
+    path('edit_operation/<int:id_operation>/', my_view, name='edit_operation'),
 
 ]
