@@ -37,7 +37,7 @@ def search(request):
     total_operations = OperationFilter(request.GET, queryset=operation_list).qs.aggregate(Sum('amount'))
     context = {
         'filter': operation_filter,
-        'total' : total_operations['amount__sum']
+        'total': total_operations['amount__sum']
     }
     return render(request, 'bank/search_operation.html', context)
 
@@ -104,13 +104,11 @@ def uncheck_operation_id(request):
     return HttpResponse('hello')
 
 
-def my_view(request, id_operation):
-    instance = get_object_or_404(Operation, id=id_operation)
-    form = OperationForm(request.POST or None, instance=instance)
-    former_operation = Operation.objects.get(pk=id_operation)
+def edit_operation(request, id_operation):
+    former_operation = get_object_or_404(Operation, id=id_operation)
+    form = OperationForm(request.POST or None, instance=former_operation)
     context = {
         'form': form,
-        'text':'youpla '
     }
     if form.is_valid():
         raz_operation(former_operation)

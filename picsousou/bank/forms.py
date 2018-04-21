@@ -24,13 +24,6 @@ class OperationFilter(django_filters.FilterSet):
         }
 
 
-#class OperationUpdate(UpdateView):
-#    model = Operation
-#    fields = ['name', 'amount', 'budget', 'payment', 'check', 'date']
-#    template_name = 'bank/edit_operation.html'
-#    success_url = '/bank/'
-
-
 class AccountUpdate(UpdateView):
     model = Account
     fields = ['name']
