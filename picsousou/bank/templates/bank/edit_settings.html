@@ -5,9 +5,22 @@
     <title>Modify settings</title>
 </head>
 <body>
+
+{% if text %}
+    <font size="3" face="Verdana" color="red"> {{ text }} </font>
+    {% if list %}
+        {% for point in list %}
+            <font size="2" face="Verdana" color="red"> <br> {{ point }}  </font>
+        {% endfor %}
+    {% endif %}
+{% endif %}
+
 <form action="" method="post">{% csrf_token %}
     {{ form.as_p }}
-    <input type="submit" value="Update" />
+    <input type="submit" value="Save" name="save"/>
+    {% if delete %}
+        <input type="submit" value="Delete" name="delete"/>
+    {% endif %}
 </form>
 </body>
 </html>

@@ -1,5 +1,6 @@
 from django.db import models
 import datetime
+from decimal import *
 
 
 class Month(models.Model):
@@ -10,14 +11,29 @@ class Month(models.Model):
     balance = models.DecimalField(max_digits=7, decimal_places=2, default=0)
 
     @property
+    def is_current(self):
+        return self.first_day <= datetime.today() <= self.last_day
+
+    @property
     def nb_days(self):
-        days = self.last_day-self.first_day
+        days = self.last_day - self.first_day
         return days.days+1
 
     @property
     def id_name(self):
         middle_date = self.first_day + datetime.timedelta(days=self.nb_days//2)
         return middle_date.strftime("%b %Y")
+
+    @property
+    def month_progress(self):
+        today = datetime.date.today()
+        if today > self.last_day:
+            return 1
+        if today < self.first_day:
+            return 0
+        days_spent = today - self.first_day
+        days_spent = days_spent.days + 1
+        return days_spent / self.nb_days
 
     def __str__(self):
         return str(self.id_name)
@@ -73,8 +89,33 @@ class Budget(models.Model):
     def last_day(self):
         return self.month.last_day
 
+    @property
+    def spent_from_prevision(self):
+        return min(self.spent, self.prevision)
+
+    @property
+    def remaining(self):
+        return self.prevision - self.spent_from_prevision
+
+    @property
+    def over(self):
+        return self.spent - min(self.spent,self.prevision)
+
     def set_prevision_to(self, prevision):
         self.prevision = prevision
+
+    @property
+    def authorized_spent(self):
+        current_progress = self.month.month_progress
+        return Decimal(current_progress) * Decimal(self.prevision)
+
+    @property
+    def delta_euro(self):
+        return round(self.spent - self.authorized_spent)
+
+    @property
+    def delta_days(self):
+       return round((self.spent - self.authorized_spent) / (self.month.nb_days + 1))
 
 
 class Operation(models.Model):

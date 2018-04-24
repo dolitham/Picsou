@@ -37,3 +37,7 @@ class DataBaseManager:
     def uncheck_operation(operation):
         operation.check = False
         operation.save()
+
+    @staticmethod
+    def delete_month(month):
+        month.delete()

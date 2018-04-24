@@ -5,6 +5,7 @@
 <link rel="stylesheet" type="text/css" href="{% static 'bank/settings.css' %}">
 
     <table id="content" style="width:60%">
+        <th> Name </th>
         <th> First Day</th>
         <th> Last Day</th>
         <th> Input </th>
@@ -12,6 +13,7 @@
         <th> Balance </th>
     {% for month in month_list %}
       <tr style="cursor:pointer" onClick="location.href='{% url 'bank:edit_month' month.id %}';" >
+          <td> {{ month.id_name }} </td>
           <td> {{ month.first_day }} </td>
           <td nowrap> {{ month.last_day }}  </td>
           <td nowrap>  {{ month.total_input }}  </td>
@@ -21,5 +23,9 @@
 
     {% endfor %}
         </table>
+
+    <form action="{% url 'bank:add_month' %}">
+        <input type="submit" value="Add" />
+    </form>
 {% endblock %}
 

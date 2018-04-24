@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .operation_manager import *
+from .month_manager import *
 
 
 def settings(request):
@@ -115,3 +116,49 @@ def edit_operation(request, id_operation):
         create_operation(form.save(commit=False))
         return redirect('bank:index')
     return render(request, 'bank/edit_operation.html', context)
+
+
+def edit_month(request, id_month):
+    month = get_object_or_404(Month, id=id_month)
+    form = MonthForm(request.POST or None, instance=month)
+    context = {
+        'form': form,
+        'delete' : True
+    }
+    if form.is_valid():
+        if 'delete' in request.POST:
+            deleted, nb_operations = delete_month(month)
+            if deleted:
+                return redirect('bank:view_months')
+            else:
+                context['text'] = str(nb_operations)+' operations during this month'
+        else:
+            form.save(commit=True)
+            return redirect('bank:view_months')
+    return render(request, 'bank/edit_settings.html', context)
+
+
+def add_month(request):
+    form = MonthForm(request.POST or None)
+    context = {'form': form}
+
+    if form.is_valid():
+        month = form.save(commit=False)
+        created, overlap_months = create_month(month)
+        if created:
+            return redirect('bank:view_months')
+        else:
+            context['text'] = 'OVERLAP AVEC '
+            context['list'] = overlap_months
+
+    return render(request, 'bank/edit_settings.html', context)
+
+
+def monthly_budget_view(request, id_month):
+    month = get_object_or_404(Month, id=id_month)
+    budgets = Budget.objects.filter(month=month)
+    context = {
+        'budgets' : budgets,
+        'month_name' : month.id_name
+    }
+    return render(request, 'bank/monthly_budget_view.html', context)

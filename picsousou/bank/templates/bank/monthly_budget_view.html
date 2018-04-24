@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'bank/settings.css' %}">
+
+
+
+{% if month_name %}
+<header>
+    <h1>
+        {{ month_name }}
+    </h1>
+</header>
+{% endif %}
+
+{% if budgets %}
+
+
+    <table id="content" style="width:60%">
+        <th> Name </th>
+        <th> Dépensé</th>
+        <th> Restant</th>
+        <th> Over </th>
+        <th> Delta euros  </th>
+        <th> Delta jours </th>
+    {% for budget in budgets %}
+      <tr >
+          <td> {{ budget.name }} </td>
+          <td class="amount"> {{ budget.spent_from_prevision }}&euro; </td>
+          <td class="amount"> {{ budget.remaining }}&euro;  </td>
+          <td class="amount">  {{ budget.over }}&euro;  </td>
+          <td class="amount">  {{ budget.delta_euro  }}&euro;  </td>
+          <td>  {{ budget.delta_days }}  </td>
+      </tr>
+
+    {% endfor %}
+        </table>
+
+
+
+{% endif %}
+
+
+
+
+
+
+
+
+
+
+
+</body>
+</html>

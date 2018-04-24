@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Modify settings</title>
+</head>
+<body>
+<form action="" method="post">{% csrf_token %}
+    {{ bootstrap_form from form.as_p }}
+    <input type="submit" value="Update" />
+</form>
+</body>
+</html>
