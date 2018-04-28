@@ -25,4 +25,6 @@ urlpatterns = [
     path('edit_operation/<int:id_operation>/', edit_operation, name='edit_operation'),
     path('add_month', add_month, name='add_month'),
     path('monthly_budget_view/<int:id_month>/', monthly_budget_view, name='monthly_budget_view'),
+    path('test_charts/<int:id_month>/', chart, name='chart_id')
+    #path('test_charts/2/', chart, name='chart')
 ]

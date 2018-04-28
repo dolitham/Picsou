@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+  <head>
+  <title>Monthly view</title>
+   {% load static %} 
+   <script type="text/javascript" src="{% static "fusioncharts/fusioncharts.js" %}"></script>
+   <script type="text/javascript" src="{% static "fusioncharts/themes/fusioncharts.theme.fint.js" %}"></script>
+   <link rel="stylesheet" type="text/css" href="{% static 'bank/settings.css' %}">
+  </head>
+  <body>
+
+  {% with 'chart' as page_name %}
+    {% include 'bank/header.html' %}
+    {% endwith %}
+
+  {% if month_name %}
+<header>
+    <h1>
+        {{ month_name }}
+    </h1>
+</header>
+{% endif %}
+<center>
+    <!-- Fusion Charts will render here-->
+    <div id="chart-1"></div>
+    <!-- dumping JavaScript code here -->
+    {{ output|safe }}
+    {{ output2|safe }}
+    </center>
+  </body>
+
+</html>
+  
+  
+

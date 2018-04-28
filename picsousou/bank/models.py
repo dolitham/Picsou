@@ -105,17 +105,17 @@ class Budget(models.Model):
         self.prevision = prevision
 
     @property
-    def authorized_spent(self):
+    def theoretical_spending(self):
         current_progress = self.month.month_progress
         return Decimal(current_progress) * Decimal(self.prevision)
 
     @property
     def delta_euro(self):
-        return round(self.spent - self.authorized_spent)
+        return round(self.spent - self.theoretical_spending)
 
     @property
     def delta_days(self):
-       return round((self.spent - self.authorized_spent) / (self.month.nb_days + 1))
+       return round((self.spent - self.theoretical_spending) / (self.month.nb_days + 1))
 
 
 class Operation(models.Model):

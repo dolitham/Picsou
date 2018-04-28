@@ -4,6 +4,8 @@ from django.shortcuts import render, redirect, get_object_or_404
 from .forms import *
 from .operation_manager import *
 from .month_manager import *
+from .fusioncharts import FusionCharts
+from .json_maker import *
 
 
 def settings(request):
@@ -162,3 +164,17 @@ def monthly_budget_view(request, id_month):
         'month_name' : month.id_name
     }
     return render(request, 'bank/monthly_budget_view.html', context)
+
+
+def chart(request, id_month):
+    month = get_object_or_404(Month, id=id_month)
+    budgets = Budget.objects.filter(month=month)
+    json_string_budgets = json_maker(budgets)
+    column2d = FusionCharts("stackedbar2d", "ex1", "600", "400", "chart-1", "json", json_string_budgets)
+    context = {
+        'output': column2d.render(),
+        'month_name' : month.id_name
+    }
+    print(json_string_budgets)
+    #column2d2 = FusionCharts("stackedbar2d", "ex1", "600", "400", "chart-1", "json", json_string_budgets)
+    return render(request, 'bank/fusioncharts-html-template.html', context)

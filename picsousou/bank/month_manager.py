@@ -49,3 +49,6 @@ def month_progress(month):
     days_spent = today - month.first_day + 1
     days_spent = days_spent.days
     return days_spent / month.nb_days
+
+
+#def make_fusion_string(id_month):
