@@ -1,6 +1,6 @@
 import django_filters
 from django.forms import ModelForm
-#from django.forms.extras.widgets import SelectDateWidget
+from django.forms.widgets import CheckboxInput
 from django.views.generic import UpdateView
 
 from .models import *
@@ -12,6 +12,7 @@ class OperationForm(ModelForm):
     class Meta:
         model = Operation
         fields = ['name', 'amount', 'budget', 'payment', 'check', 'date']
+        widgets = {'check': CheckboxInput()}
 
 
 class OperationFilter(django_filters.FilterSet):

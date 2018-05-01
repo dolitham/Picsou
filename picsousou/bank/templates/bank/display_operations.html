@@ -14,7 +14,9 @@
           <td class="amount" nowrap> &euro; {{ operation.amount }}  </td>
           <td class="budget" nowrap> {{ operation.budget }}  </td>
           <td class="check" nowrap>
+              {% if not operation.check == None %}
               <input type='checkbox' name="operation_check" id={{ operation.id }} {% ifequal operation.check True %}checked{% endifequal %}>
+              {% endif %}
           </td>
 
       </tr>

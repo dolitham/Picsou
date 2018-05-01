@@ -5,8 +5,10 @@ def create_operation(operation):
     added = add_to_budget(operation.budget, operation.amount, operation.date)
     if added:
         DataBaseManager.spend_from_account(operation.account, operation.amount)
-        if operation.check:
+        if operation.check or operation.payment.visible_days > 0:
             check_operation(operation)
+            if operation.payment.visible_days > 0:
+                operation.check = None
         DataBaseManager.insert_operation(operation)
 
 

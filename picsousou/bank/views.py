@@ -19,7 +19,7 @@ def settings(request):
 
 
 def index(request):
-    operation_list = Operation.objects.filter(check=False).order_by('-date')
+    operation_list = Operation.objects.exclude(check=True).order_by('-date')
     operation_list = [op for op in operation_list if op.is_recent_or_pending()]
 
     context = {
@@ -125,7 +125,7 @@ def edit_month(request, id_month):
     form = MonthForm(request.POST or None, instance=month)
     context = {
         'form': form,
-        'delete' : True
+        'delete': True
     }
     if form.is_valid():
         if 'delete' in request.POST:
@@ -176,5 +176,4 @@ def chart(request, id_month):
         'month_name' : month.id_name
     }
     print(json_string_budgets)
-    #column2d2 = FusionCharts("stackedbar2d", "ex1", "600", "400", "chart-1", "json", json_string_budgets)
     return render(request, 'bank/fusioncharts-html-template.html', context)

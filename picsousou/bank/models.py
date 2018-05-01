@@ -1,4 +1,5 @@
 from django.db import models
+from django import forms
 import datetime
 from decimal import *
 
@@ -123,7 +124,7 @@ class Operation(models.Model):
     amount = models.DecimalField(max_digits=7, decimal_places=2)
     date = models.DateField('Date', default=datetime.date.today)
     budget = models.ForeignKey(BudgetName, on_delete=models.CASCADE, default=1)
-    check = models.BooleanField(default=False)
+    check = models.NullBooleanField(default=False)
     payment = models.ForeignKey(PaymentMethod, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
@@ -139,5 +140,4 @@ class Operation(models.Model):
             return True
         now = datetime.date.today()
         is_recent = self.date > now - datetime.timedelta(days=self.payment.visible_days)
-        print(self.name, is_recent)
         return is_recent
