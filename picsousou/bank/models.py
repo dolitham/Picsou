@@ -51,10 +51,14 @@ class Account(models.Model):
     name = models.CharField(max_length=50)
     id_name = models.CharField(max_length=10)
     current_balance = models.DecimalField(max_digits=7, decimal_places=2)
-    upcoming_balance = models.DecimalField(max_digits=7, decimal_places=2)
+    upcoming_delta = models.DecimalField(max_digits=7, decimal_places=2)
 
     def __str__(self):
         return self.name
+
+    @property
+    def upcoming_balance(self):
+        return self.current_balance + self.upcoming_delta
 
 
 class PaymentMethod(models.Model):

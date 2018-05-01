@@ -1,3 +1,5 @@
+from copy import deepcopy
+
 from django.db.models import Sum
 from django.http import HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
@@ -109,14 +111,20 @@ def uncheck_operation_id(request):
 
 def edit_operation(request, id_operation):
     former_operation = get_object_or_404(Operation, id=id_operation)
-    form = OperationForm(request.POST or None, instance=former_operation)
+    form = OperationForm(request.POST or None, instance=deepcopy(former_operation))
     context = {
         'form': form,
     }
+
     if form.is_valid():
+        if 'delete' in request.POST:
+            delete_operation(former_operation)
+            return redirect('bank:index')
+        
         raz_operation(former_operation)
         create_operation(form.save(commit=False))
         return redirect('bank:index')
+
     return render(request, 'bank/edit_operation.html', context)
 
 

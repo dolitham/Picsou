@@ -15,14 +15,22 @@ class DataBaseManager:
         budget.save()
 
     @staticmethod
-    def spend_from_account(account, amount):
-        account.upcoming_balance -= amount
+    def spend_upcoming_from_account(account, amount):
+        account.upcoming_delta -= amount
         account.save()
 
     @staticmethod
     def process_amount_in_account(account, amount):
         account.current_balance -= amount
+        account.upcoming_delta += amount
         account.save()
+
+    @staticmethod
+    def spend_now_from_account(account, amount):
+        print('balance', account.current_balance)
+        account.current_balance -= amount
+        account.save()
+        print('balance', account.current_balance)
 
     @staticmethod
     def insert_operation(operation):
@@ -41,3 +49,7 @@ class DataBaseManager:
     @staticmethod
     def delete_month(month):
         month.delete()
+
+    @staticmethod
+    def delete_operation(operation):
+        operation.delete()
