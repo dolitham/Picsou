@@ -4,3 +4,4 @@ venv/*
 *.swp
 *DS_Store
 **/fusioncharts/
+picsousou/picsou/settings.py

@@ -49,6 +49,9 @@ class Person(models.Model):
 
 class Account(models.Model):
     name = models.CharField(max_length=50)
+    #payment_name = models.CharField(max_length=10)
+    #instant_payment = models.BooleanField(default=False)
+    #nb_days_operations_remain_visible = models.IntegerField(default=0)
     id_name = models.CharField(max_length=10)
     current_balance = models.DecimalField(max_digits=7, decimal_places=2)
     upcoming_delta = models.DecimalField(max_digits=7, decimal_places=2)

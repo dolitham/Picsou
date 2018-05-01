@@ -36,8 +36,7 @@ def search(request):
     if [req[u] for u in req]:
         operation_list = Operation.objects.all()
     else:
-        operation_list = Operation.objects.filter(amount__lte=-1000)
-        operation_list = operation_list.exclude(amount__lte=-1000)
+        operation_list = Operation.objects.all().order_by('-id')[:10]
     operation_filter = OperationFilter(request.GET, queryset=operation_list)
     total_operations = OperationFilter(request.GET, queryset=operation_list).qs.aggregate(Sum('amount'))
     context = {
