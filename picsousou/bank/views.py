@@ -120,7 +120,7 @@ def edit_operation(request, id_operation):
         if 'delete' in request.POST:
             delete_operation(former_operation)
             return redirect('bank:index')
-        
+
         raz_operation(former_operation)
         create_operation(form.save(commit=False))
         return redirect('bank:index')
@@ -176,7 +176,7 @@ def monthly_budget_view(request, id_month):
 
 def chart(request, id_month):
     month = get_object_or_404(Month, id=id_month)
-    budgets = Budget.objects.filter(month=month)
+    budgets = Budget.objects.filter(month=month).order_by('-prevision')
     json_string_budgets = json_maker(budgets)
     column2d = FusionCharts("stackedbar2d", "ex1", "600", "400", "chart-1", "json", json_string_budgets)
     context = {

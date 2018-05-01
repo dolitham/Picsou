@@ -1,9 +1,10 @@
 import django_filters
 from django.forms import ModelForm
-from django.forms.widgets import CheckboxInput
+from django.forms.widgets import CheckboxInput, DateInput
 from django.views.generic import UpdateView
 
 from .models import *
+
 
 EDIT_SETTINGS_HTML = 'bank/edit_settings.html'
 
@@ -12,7 +13,7 @@ class OperationForm(ModelForm):
     class Meta:
         model = Operation
         fields = ['name', 'amount', 'budget', 'payment', 'check', 'date']
-        widgets = {'check': CheckboxInput()}
+        widgets = {'check': CheckboxInput(), 'date': DateInput(attrs={'type':'date', 'class':'datepicker'})}
 
 
 class OperationFilter(django_filters.FilterSet):
