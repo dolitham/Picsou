@@ -24,7 +24,7 @@
 {% if account_list %}
     <ul>
         {% for account in account_list %}
-            <li>{{account.name}} : &euro; {{account.current_balance}}
+            <li>{{account.account_name}} : &euro; {{account.current_balance}}
                 {% if account.upcoming_delta %}
                     (upcoming : &euro; {{account.upcoming_balance}})
                 {% endif %}

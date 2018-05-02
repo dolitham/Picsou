@@ -18,13 +18,10 @@ urlpatterns = [
     path('account/<int:pk>/', AccountUpdate.as_view(), name='edit_account'),
     path('settings/budgets', view_budgets, name='view_budgets'),
     path('budget/<int:pk>/', BudgetNameUpdate.as_view(), name='edit_budget'),
-    path('settings/payments', view_payments, name='view_payments'),
-    path('payment/<int:pk>/', PaymentMethodUpdate.as_view(), name='edit_payment'),
     path('settings/months', view_months, name='view_months'),
     path('month/<int:id_month>/', edit_month, name='edit_month'),
     path('edit_operation/<int:id_operation>/', edit_operation, name='edit_operation'),
     path('add_month', add_month, name='add_month'),
     path('monthly_budget_view/<int:id_month>/', monthly_budget_view, name='monthly_budget_view'),
     path('test_charts/<int:id_month>/', chart, name='chart_id')
-    #path('test_charts/2/', chart, name='chart')
 ]

@@ -34,13 +34,6 @@ class AccountUpdate(UpdateView):
     success_url = '/bank/settings/accounts'
 
 
-class PaymentMethodUpdate(UpdateView):
-    model = PaymentMethod
-    fields = ['name', 'account', 'visible_days']
-    template_name = EDIT_SETTINGS_HTML
-    success_url = '/bank/settings/payments'
-
-
 class BudgetNameUpdate(UpdateView):
     model = BudgetName
     fields = ['name']

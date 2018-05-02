@@ -4,3 +4,4 @@ venv/*
 *.swp
 *DS_Store
 picsousou/picsou/settings.py
+picsousou/bank/migrations/*

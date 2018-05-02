@@ -47,31 +47,21 @@ class Person(models.Model):
 
 
 class Account(models.Model):
-    name = models.CharField(max_length=50)
-    #payment_name = models.CharField(max_length=10)
-    #instant_payment = models.BooleanField(default=False)
-    #nb_days_operations_remain_visible = models.IntegerField(default=0)
+    account_name = models.CharField(max_length=50)
+    payment_name = models.CharField(max_length=15)
+    instant_payment = models.BooleanField(default=False)
+    nb_days_operations_remain_visible = models.IntegerField(default=0)
     #initial_balance = models.DecimalField(max_digits=7, decimal_places=2, editable=False)
     #initial_delta = models.DecimalField(max_digits=7, decimal_places=2, editable=False)
-    id_name = models.CharField(max_length=10)
     current_balance = models.DecimalField(max_digits=7, decimal_places=2)
     upcoming_delta = models.DecimalField(max_digits=7, decimal_places=2)
 
     def __str__(self):
-        return self.name
+        return self.payment_name
 
     @property
     def upcoming_balance(self):
         return self.current_balance + self.upcoming_delta
-
-
-class PaymentMethod(models.Model):
-    name = models.CharField(max_length=50)
-    account = models.ForeignKey(Account, on_delete=models.CASCADE)
-    visible_days = models.IntegerField(default=0)
-
-    def __str__(self):
-        return self.name + ' ' + self.account.id_name
 
 
 class BudgetName(models.Model):
@@ -129,19 +119,13 @@ class Operation(models.Model):
     date = models.DateField('Date', default=datetime.date.today)
     budget = models.ForeignKey(BudgetName, on_delete=models.CASCADE, default=1)
     check = models.NullBooleanField(default=False)
-    payment = models.ForeignKey(PaymentMethod, on_delete=models.CASCADE, default=1)
+    payment = models.ForeignKey(Account, on_delete=models.CASCADE, default=1)
 
     def __str__(self):
         return self.name + ' : '+str(self.amount)
 
-    @property
-    def account(self):
-        return self.payment.account
-
     def is_recent_or_pending(self):
-        is_pending = not self.check and self.payment.visible_days == 0
-        if is_pending:
-            return True
         now = datetime.date.today()
-        is_recent = self.date > now - datetime.timedelta(days=self.payment.visible_days)
-        return is_recent
+        if self.date > now - datetime.timedelta(days=self.payment.nb_days_operations_remain_visible):
+            return True # RECENT
+        return not self.check and not self.payment.instant_payment #PENDING

@@ -10,7 +10,7 @@
         <th> Upcoming Balance </th>
     {% for account in account_list %}
       <tr style="cursor:pointer" onClick="location.href='{% url 'bank:edit_account' account.id %}';" >
-          <td> {{ account.name }} </td>
+          <td> {{ account.account_name }} </td>
           <td nowrap> &euro; {{ account.current_balance }}  </td>
           <td nowrap> &euro; {{ account.upcoming_balance }}  </td>
       </tr>

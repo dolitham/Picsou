@@ -88,14 +88,6 @@ def view_months(request):
     return render(request, 'bank/view_months.html', context)
 
 
-def view_payments(request):
-    payment_list = PaymentMethod.objects.all()
-    context = {
-        'payment_list': payment_list
-    }
-    return render(request, 'bank/view_payments.html', context)
-
-
 def check_operation_id(request):
     operation_id = request.GET['operation_id']
     operation = Operation.objects.get(pk=operation_id)

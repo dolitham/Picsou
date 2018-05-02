@@ -9,8 +9,10 @@ def get_all_fields_from(model):
 class OperationAdmin(admin.ModelAdmin):
     list_display = get_all_fields_from(Operation)
 
+
 class BudgetAdmin(admin.ModelAdmin):
     list_display = get_all_fields_from(Budget)
+
 
 class MonthAdmin(admin.ModelAdmin):
     list_display = get_all_fields_from(Month)
@@ -18,7 +20,6 @@ class MonthAdmin(admin.ModelAdmin):
 
 admin.site.register(BudgetName)
 admin.site.register(Account)
-admin.site.register(PaymentMethod)
 admin.site.register(Operation, OperationAdmin)
 admin.site.register(Person)
 admin.site.register(Budget, BudgetAdmin)
