@@ -1,5 +1,4 @@
 from django.db import models
-from django import forms
 import datetime
 from decimal import *
 
@@ -52,6 +51,8 @@ class Account(models.Model):
     #payment_name = models.CharField(max_length=10)
     #instant_payment = models.BooleanField(default=False)
     #nb_days_operations_remain_visible = models.IntegerField(default=0)
+    #initial_balance = models.DecimalField(max_digits=7, decimal_places=2, editable=False)
+    #initial_delta = models.DecimalField(max_digits=7, decimal_places=2, editable=False)
     id_name = models.CharField(max_length=10)
     current_balance = models.DecimalField(max_digits=7, decimal_places=2)
     upcoming_delta = models.DecimalField(max_digits=7, decimal_places=2)
@@ -90,27 +91,8 @@ class Budget(models.Model):
         return self.name.name
 
     @property
-    def first_day(self):
-        return self.month.first_day
-
-    @property
-    def last_day(self):
-        return self.month.last_day
-
-    @property
-    def spent_from_prevision(self):
-        return min(self.spent, self.prevision)
-
-    @property
-    def remaining(self):
-        return self.prevision - self.spent_from_prevision
-
-    @property
     def over(self):
-        return self.spent - min(self.spent,self.prevision)
-
-    def set_prevision_to(self, prevision):
-        self.prevision = prevision
+        return self.spent - min(self.spent, self.prevision)
 
     @property
     def theoretical_spending(self):
@@ -118,12 +100,27 @@ class Budget(models.Model):
         return Decimal(current_progress) * Decimal(self.prevision)
 
     @property
-    def delta_euro(self):
-        return round(self.spent - self.theoretical_spending)
+    def remaining_over(self):
+        return max(self.theoretical_spending - self.spent, 0)
+
+    @property
+    def remaining_ok(self):
+        return self.prevision - max(self.spent, self.theoretical_spending)
+
+    @property
+    def spent_ok(self):
+        return min(self.spent, self.theoretical_spending)
+
+    @property
+    def spent_over(self):
+        return max(self.spent - self.theoretical_spending, 0)
 
     @property
     def delta_days(self):
-       return round((self.spent - self.theoretical_spending) / (self.month.nb_days + 1))
+        return round((self.spent - self.theoretical_spending) / (self.month.nb_days + 1))
+
+    def set_prevision_to(self, prevision):
+        self.prevision = prevision
 
 
 class Operation(models.Model):

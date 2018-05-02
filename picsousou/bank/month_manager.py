@@ -1,6 +1,8 @@
-import datetime
-from .models import Month, Operation
 from .database_manager import *
+
+
+def date_str(date):
+    return date.strftime('%d %b %Y')
 
 
 def get_previous_and_next_month(month):
@@ -15,11 +17,11 @@ def get_previous_and_next_month(month):
 def month_overlaps(month1, month2):
     delta1 = (month1.first_day - month2.last_day).days
     delta2 = (month1.last_day - month2.first_day).days
-    return delta1*delta2<=0
+    return delta1*delta2 <= 0
 
 
 def month_has_no_overlap(month):
-    overlap = [m.id_name + '  (' + m.first_day.strftime('%d %b %Y') + ' to ' + m.last_day.strftime('%d %b %Y') + ')'for m in Month.objects.all() if month_overlaps(m, month)]
+    overlap = [m.id_name + '  (' + date_str(m.first_day) + ' to ' + date_str(m.last_day) + ')'for m in Month.objects.all() if month_overlaps(m, month)]
     return (True, []) if not overlap else (False, overlap)
 
 
@@ -49,6 +51,3 @@ def month_progress(month):
     days_spent = today - month.first_day + 1
     days_spent = days_spent.days
     return days_spent / month.nb_days
-
-
-#def make_fusion_string(id_month):

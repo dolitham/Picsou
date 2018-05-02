@@ -7,7 +7,7 @@ from .forms import *
 from .operation_manager import *
 from .month_manager import *
 from .fusioncharts import FusionCharts
-from .json_maker import *
+from .parser_charts import *
 
 
 def settings(request):
@@ -23,10 +23,12 @@ def settings(request):
 def index(request):
     operation_list = Operation.objects.exclude(check=True).order_by('-date')
     operation_list = [op for op in operation_list if op.is_recent_or_pending()]
+    total = sum(op.amount for op in operation_list)
 
     context = {
         'operation_list': operation_list,
-        'account_list': Account.objects.all()
+        'account_list': Account.objects.all(),
+        'total': total
     }
     return render(request, 'bank/index.html', context)
 
@@ -176,11 +178,9 @@ def monthly_budget_view(request, id_month):
 def chart(request, id_month):
     month = get_object_or_404(Month, id=id_month)
     budgets = Budget.objects.filter(month=month).order_by('-prevision')
-    json_string_budgets = json_maker(budgets)
-    column2d = FusionCharts("stackedbar2d", "ex1", "600", "400", "chart-1", "json", json_string_budgets)
+    column2d = FusionCharts("stackedbar2d", "ex1", "600", "400", "chart-1", "json", budget_chart_parser(budgets))
     context = {
         'output': column2d.render(),
-        'month_name' : month.id_name
+        'month_name': month.id_name
     }
-    print(json_string_budgets)
-    return render(request, 'bank/fusioncharts-html-template.html', context)
+    return render(request, 'bank/chart_budgets.html', context)
